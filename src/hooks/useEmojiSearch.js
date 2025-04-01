@@ -26,13 +26,17 @@ const useEmojiSearch = (query) => {
       )
         .then((res) => {
           if (!res.ok) {
-            throw new Error("Emoji servisine ulaşılamıyor!");
+            setLoading(false);
+            setEmojis([]);
+            throw new Error("Emoji sunucusuna ulaşılamıyor!");
           }
           return res.json();
         })
         .then((data) => {
           if (data.length === 0) {
             setError("Sonuç bulunamadı.");
+            setLoading(false);
+            setEmojis([]);
           } else {
             setLoading(false);
             setEmojis(data);
